@@ -143,3 +143,9 @@ Replace the path to `connect.exe` and the SOCKS5 proxy address if you changed it
 Host my.ssh.host
     ProxyCommand path\to\connect.exe -S 127.0.0.1:1080 %h %p
 ```
+
+Now you can SSH as normal using the Tailscale hostname or IP:
+
+```pwsh
+ssh user@100.64.x.y
+```
