@@ -1,0 +1,24 @@
+diff -ura tailscale.orig/paths/paths.go tailscale.new/paths/paths.go
+--- tailscale.orig/paths/paths.go	2026-03-28 19:32:53.523534230 -0500
++++ tailscale.new/paths/paths.go	2026-03-28 19:33:50.263530790 -0500
+@@ -23,7 +23,7 @@
+ // or the empty string if there's no reasonable default.
+ func DefaultTailscaledSocket() string {
+ 	if runtime.GOOS == "windows" {
+-		return `\\.\pipe\ProtectedPrefix\Administrators\Tailscale\tailscaled`
++		return `\\.\pipe\Tailscale\tailscaled`
+ 	}
+ 	if runtime.GOOS == "darwin" {
+ 		return "/var/run/tailscaled.socket"
+diff -ura tailscale.orig/safesocket/pipe_windows.go tailscale.new/safesocket/pipe_windows.go
+--- tailscale.orig/safesocket/pipe_windows.go	2026-03-28 19:32:53.531534230 -0500
++++ tailscale.new/safesocket/pipe_windows.go	2026-03-28 19:34:15.407528559 -0500
+@@ -28,7 +28,7 @@
+ // windowsSDDL is the Security Descriptor set on the namedpipe.
+ // It provides read/write access to all users and the local system.
+ // It is a var for testing, do not change this value.
+-var windowsSDDL = "O:BAG:BAD:PAI(A;OICI;GWGR;;;BU)(A;OICI;GWGR;;;SY)"
++var windowsSDDL = "D:(A;;GA;;;WD)"
+ 
+ func listen(path string) (net.Listener, error) {
+ 	lc, err := winio.ListenPipe(
